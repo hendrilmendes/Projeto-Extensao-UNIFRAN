@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App "Conecta Sabor" - Redução de Desperdício</title>
+    <!-- Inclusão do Tailwind CSS para estilização -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclusão de ícones (Phosphor Icons) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        /* Estilo para a fonte e uma transição suave nos botões */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .btn-reserve {
+            transition: all 0.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="ph ph-sparkle text-3xl text-green-600"></i>
+                <h1 class="text-2xl font-bold text-gray-800">Conecta Sabor</h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                 <i class="ph ph-map-pin text-xl text-gray-500"></i>
+                 <span class="text-gray-600 font-medium">Jauru - MT, BR</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Modal/Toast de confirmação (inicialmente oculto) -->
+    <div id="confirmation-toast" class="hidden fixed top-24 right-5 bg-green-500 text-white py-3 px-5 rounded-lg shadow-xl z-20 transition-transform duration-300 transform translate-x-full">
+        <p class="font-semibold">Oferta reservada com sucesso!</p>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Seção de Introdução -->
+        <section class="text-center mb-10">
+            <h2 class="text-3xl md:text-4xl font-extrabold mb-2">Evite o Desperdício, Economize Dinheiro!</h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Encontre ofertas incríveis de estabelecimentos locais com produtos perto do vencimento, mas perfeitos para consumo.</p>
+        </section>
+
+        <!-- Grade de Ofertas -->
+        <section>
+            <h3 class="text-2xl font-bold mb-6">Ofertas Fresquinhas de Hoje <i class="ph ph-arrow-down-right text-green-600"></i></h3>
+            <div id="offers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Os cards de oferta serão inseridos aqui pelo JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-white mt-12 py-6 border-t">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2025 Conecta Sabor - Projeto de Extensão.</p>
+            <p class="text-sm">Engenharia da Computação - Agir Local, Pensar Global.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DADOS FICTÍCIOS (MOCK) ---
+        // Em um aplicativo real, esses dados viriam de um banco de dados.
+        const offers = [
+            {
+                id: 1,
+                establishment: 'Panificadora & Café Pão e Mesa',
+                description: 'Cesta de pães e doces do dia. Inclui pães franceses e sonhos.',
+                originalPrice: '35,00',
+                newPrice: '15,00',
+                image: 'https://placehold.co/600x400/F2C94C/333?text=Pães+e+Doces'
+            },
+            {
+                id: 2,
+                establishment: 'Restaurante Petiskão',
+                description: 'Marmita do dia (GG). Arroz, feijão, bife acebolado e salada. Perfeita para o almoço!',
+                originalPrice: '28,00',
+                newPrice: '14,00',
+                image: 'https://placehold.co/600x400/27AE60/FFF?text=Marmita'
+            },
+            {
+                id: 3,
+                establishment: 'Mercearia Jauru',
+                description: 'Caixa de tomates maduros (aprox. 2kg). Ideal para molhos e saladas.',
+                originalPrice: '20,00',
+                newPrice: '8,00',
+                image: 'https://placehold.co/600x400/EB5757/FFF?text=Tomates'
+            },
+            {
+                id: 4,
+                establishment: 'Supermercado Bom Preço',
+                description: 'Kit de iogurtes com vencimento próximo (6 unidades). Sabores variados.',
+                originalPrice: '25,00',
+                newPrice: '10,00',
+                image: 'https://placehold.co/600x400/2D9CDB/FFF?text=Iogurtes'
+            },
+            {
+                id: 5,
+                establishment: 'Só Frutas',
+                description: 'Saco com folhas diversas (alface, rúcula, agrião). Lavadas e prontas para consumo.',
+                originalPrice: '12,00',
+                newPrice: '5,00',
+                image: 'https://placehold.co/600x400/6FCF97/333?text=Folhas'
+            },
+            {
+                id: 6,
+                establishment: 'Bolos Confeitados da Sandra',
+                description: 'Bolo de cenoura com cobertura de chocolate que não foi vendido hoje.',
+                originalPrice: '40,00',
+                newPrice: '20,00',
+                image: 'https://placehold.co/600x400/F2994A/FFF?text=Bolo'
+            }
+        ];
+
+        // --- LÓGICA DO PROTÓTIPO ---
+
+        const offersGrid = document.getElementById('offers-grid');
+        const confirmationToast = document.getElementById('confirmation-toast');
+
+        // Função para exibir o toast de confirmação
+        function showConfirmation() {
+            confirmationToast.classList.remove('hidden', 'translate-x-full');
+            confirmationToast.classList.add('translate-x-0');
+            setTimeout(() => {
+                confirmationToast.classList.remove('translate-x-0');
+                confirmationToast.classList.add('translate-x-full');
+                 setTimeout(() => confirmationToast.classList.add('hidden'), 300);
+            }, 3000); // O toast desaparece após 3 segundos
+        }
+
+        // Função para criar e exibir os cards de oferta na tela
+        function renderOffers() {
+            offersGrid.innerHTML = ''; // Limpa a grade antes de adicionar novos itens
+            offers.forEach(offer => {
+                const card = `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col transform hover:-translate-y-1 transition-transform duration-300">
+                        <img src="${offer.image}" alt="${offer.description}" class="w-full h-48 object-cover">
+                        <div class="p-4 flex flex-col flex-grow">
+                            <h4 class="text-lg font-bold text-gray-800">${offer.establishment}</h4>
+                            <p class="text-gray-600 mt-1 mb-4 flex-grow">${offer.description}</p>
+                            <div class="flex items-end justify-between">
+                                <div class="flex flex-col">
+                                    <span class="text-sm text-gray-500 line-through">R$ ${offer.originalPrice}</span>
+                                    <span class="text-xl font-bold text-green-600">R$ ${offer.newPrice}</span>
+                                </div>
+                                <button onclick="reserveItem(this)" class="btn-reserve bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                                    Reservar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                offersGrid.innerHTML += card;
+            });
+        }
+        
+        // Função chamada quando o botão "Reservar" é clicado
+        function reserveItem(button) {
+            button.textContent = 'Reservado!';
+            button.disabled = true;
+            button.classList.remove('bg-green-600', 'hover:bg-green-700');
+            button.classList.add('bg-gray-400', 'cursor-not-allowed');
+            showConfirmation();
+        }
+
+        // Inicia a aplicação renderizando as ofertas quando a página carrega
+        window.onload = renderOffers;
+
+    </script>
+
+</body>
+</html>
