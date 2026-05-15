@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Edge | Engenharia Unipê</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
+            --primary: #3b82f6;
+            --accent: #8b5cf6;
+            --text-white: #f9fafb;
+            --text-gray: #9ca3af;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Mesh */
+        .mesh {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+
+        header { text-align: center; margin-bottom: 100px; }
+        
+        .badge {
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            padding: 8px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        h1 { 
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 8vw, 5rem); 
+            font-weight: 700; margin: 30px 0; line-height: 0.9; letter-spacing: -3px; 
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* Features Section */
+        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 50px; border-radius: 40px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .card i { 
+            font-size: 3rem; margin-bottom: 30px; 
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; margin-bottom: 20px; }
+        .card p { color: var(--text-gray); font-size: 1.05rem; }
+
+        /* ODS Section */
+        .ods-banner {
+            margin-top: 120px; padding: 60px; border-radius: 40px;
+            background: linear-gradient(135deg, rgba(162, 28, 51, 0.15) 0%, transparent 100%);
+            border: 1px solid rgba(162, 28, 51, 0.3);
+            display: flex; align-items: center; gap: 40px;
+        }
+
+        .ods-number {
+            font-size: 5rem; font-weight: 800; color: #A21C33;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        footer { 
+            margin-top: 100px; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center; color: var(--text-gray);
+        }
+
+        @media (max-width: 768px) {
+            .ods-banner { flex-direction: column; text-align: center; padding: 40px 20px; }
+            h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="mesh"></div>
+    <div class="container">
+        <header>
+            <span class="badge">Atividade de Extensão 2026.1</span>
+            <h1>A Nova Era da <br><span class="gradient-text">Inovação Local</span></h1>
+            <p style="color: var(--text-gray); font-size: 1.2rem;">Engenharia de Computação aplicada ao desenvolvimento sustentável e maturidade digital.</p>
+        </header>
+
+        <section class="features">
+            <div class="card">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3>Sistemas Resilientes</h3>
+                <p>Implementação de arquiteturas digitais que garantem a continuidade e escalabilidade do negócio local.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-user-shield"></i>
+                <h3>Cibersegurança</h3>
+                <p>Proteção de ativos digitais e conformidade com boas práticas de tratamento de dados sensíveis.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-code-branch"></i>
+                <h3>Automação Inteligente</h3>
+                <p>Integração de ferramentas SaaS para otimização de workflow e aumento da produtividade real.</p>
+            </div>
+        </section>
+
+        <div class="ods-banner">
+            <div class="ods-number">08</div>
+            <div>
+                <h2 style="margin-bottom: 10px; color: #A21C33;">Trabalho Decente e Crescimento Econômico</h2>
+                <p>Este hub tecnológico atua diretamente na meta de promover políticas orientadas para o desenvolvimento, que apoiam a criatividade e a inovação nas microempresas[cite: 1].</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Projeto Desenvolvido por <strong>Hendril Mendes Ribeiro</strong></p>
+            <p>Universidade Cruzeiro do Sul - Polo Unifran</p>
+        </footer>
+    </div>
+</body>
+</html>
