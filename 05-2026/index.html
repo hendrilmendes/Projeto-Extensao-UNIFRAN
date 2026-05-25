@@ -1,124 +1,427 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Edge | Engenharia Unipê</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="Digital Edge - Engenharia de Computação aplicada ao desenvolvimento sustentável.">
+    <title>Digital Edge | Engenharia Cruzeiro do Sul</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
+        /* Variáveis de Tema Pro */
         :root {
-            --bg: #030712;
-            --card-bg: rgba(17, 24, 39, 0.7);
+            --bg-dark: #030712;
+            --glass-bg: rgba(17, 24, 39, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
             --primary: #3b82f6;
             --accent: #8b5cf6;
-            --text-white: #f9fafb;
-            --text-gray: #9ca3af;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: var(--bg);
-            color: var(--text-white);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Animated Background Mesh */
-        .mesh {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+        /* Fundo Animado Elegante */
+        .mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background:
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 85% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 45%);
             z-index: -1;
+            pointer-events: none;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        /* Navegação Profissional */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+        }
 
-        header { text-align: center; margin-bottom: 100px; }
-        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Estrutura Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 140px 20px 80px;
+        }
+
+        /* Header / Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
         .badge {
-            background: linear-gradient(90deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-            padding: 8px 20px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
-            font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.15));
+            padding: 8px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
         }
 
-        h1 { 
-            font-family: 'Space Grotesk', sans-serif; font-size: clamp(3rem, 8vw, 5rem); 
-            font-weight: 700; margin: 30px 0; line-height: 0.9; letter-spacing: -3px; 
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
         }
 
         .gradient-text {
             background: linear-gradient(to right, #3b82f6, #8b5cf6, #ec4899);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        /* Features Section */
-        .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Cards de Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
 
         .card {
-            background: var(--card-bg);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 50px; border-radius: 40px;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 50px 40px;
+            border-radius: 30px;
+            transition: var(--transition-smooth);
         }
 
         .card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transform: translateY(-10px);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .card i { 
-            font-size: 3rem; margin-bottom: 30px; 
+        .card i {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
             background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; margin-bottom: 20px; }
-        .card p { color: var(--text-gray); font-size: 1.05rem; }
+        .card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            margin-top: 120px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 80px 60px;
+            backdrop-filter: blur(20px);
+        }
+
+        .quiz-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .quiz-form {
+            display: grid;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .form-group select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 16px 20px;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%239ca3af%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px top 50%;
+            background-size: 12px auto;
+        }
+
+        .form-group select:focus {
+            border-color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .form-group select option {
+            background: var(--bg-dark);
+            color: var(--text-main);
+        }
+
+        .btn-submit {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            justify-self: start;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Result Box */
+        .result-box {
+            margin-top: 40px;
+            padding: 40px;
+            border-radius: 20px;
+            display: none;
+            transition: var(--transition-smooth);
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-bar-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50px;
+            height: 12px;
+            width: 100%;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            height: 100%;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+            border-radius: 50px;
+        }
 
         /* ODS Section */
         .ods-banner {
-            margin-top: 120px; padding: 60px; border-radius: 40px;
-            background: linear-gradient(135deg, rgba(162, 28, 51, 0.15) 0%, transparent 100%);
-            border: 1px solid rgba(162, 28, 51, 0.3);
-            display: flex; align-items: center; gap: 40px;
+            margin-top: 120px;
+            padding: 60px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, rgba(162, 28, 51, 0.1) 0%, transparent 100%);
+            border: 1px solid rgba(162, 28, 51, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 50px;
         }
 
         .ods-number {
-            font-size: 5rem; font-weight: 800; color: #A21C33;
+            font-size: 6rem;
+            font-weight: 700;
+            color: #A21C33;
             font-family: 'Space Grotesk', sans-serif;
+            line-height: 1;
         }
 
-        footer { 
-            margin-top: 100px; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05);
-            text-align: center; color: var(--text-gray);
+        /* Footer */
+        footer {
+            margin-top: 120px;
+            padding: 40px 0;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
 
+        footer strong {
+            color: var(--text-main);
+        }
+
+        /* Classes de Animação (Scroll Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsividade */
         @media (max-width: 768px) {
-            .ods-banner { flex-direction: column; text-align: center; padding: 40px 20px; }
-            h1 { font-size: 3.5rem; }
+            .nav-links {
+                display: none;
+            }
+
+            /* Em um projeto real, faríamos um menu hamburguer aqui */
+            .ods-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 30px;
+                gap: 20px;
+            }
+
+            .quiz-section {
+                padding: 50px 30px;
+            }
+
+            .btn-submit {
+                justify-self: stretch;
+                width: 100%;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="mesh"></div>
+    <div class="mesh-background"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Digital<span style="color: var(--primary);">Edge</span></a>
+            <div class="nav-links">
+                <a href="#solucoes">Soluções</a>
+                <a href="#diagnostico">Diagnóstico</a>
+                <a href="#ods">Impacto ODS</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <header>
+        <header class="hero reveal">
             <span class="badge">Atividade de Extensão 2026.1</span>
             <h1>A Nova Era da <br><span class="gradient-text">Inovação Local</span></h1>
-            <p style="color: var(--text-gray); font-size: 1.2rem;">Engenharia de Computação aplicada ao desenvolvimento sustentável e maturidade digital.</p>
+            <p>Engenharia de Computação aplicada ao desenvolvimento sustentável e maturidade digital das microempresas.
+            </p>
         </header>
 
-        <section class="features">
+        <section id="solucoes" class="features reveal">
             <div class="card">
                 <i class="fa-solid fa-layer-group"></i>
                 <h3>Sistemas Resilientes</h3>
-                <p>Implementação de arquiteturas digitais que garantem a continuidade e escalabilidade do negócio local.</p>
+                <p>Implementação de arquiteturas digitais que garantem a continuidade e escalabilidade do negócio local.
+                </p>
             </div>
             <div class="card">
                 <i class="fa-solid fa-user-shield"></i>
@@ -132,18 +435,146 @@
             </div>
         </section>
 
-        <div class="ods-banner">
+        <section id="diagnostico" class="quiz-section reveal">
+            <h2>Mapeamento de Maturidade</h2>
+            <p style="color: var(--text-muted); margin-bottom: 40px;">Descubra o nível tecnológico da sua empresa e
+                receba uma diretriz imediata de engenharia.</p>
+
+            <form id="quizForm" class="quiz-form">
+                <div class="form-group">
+                    <label for="q1">1. Onde os dados do seu negócio são armazenados?</label>
+                    <select id="q1" required>
+                        <option value="" disabled selected>Selecione uma opção...</option>
+                        <option value="1">Caderno / Processos 100% manuais</option>
+                        <option value="2">Planilhas locais salvas no computador</option>
+                        <option value="3">Sistemas na Nuvem (SaaS / ERP digital)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="q2">2. Como é feita a segurança das informações dos clientes?</label>
+                    <select id="q2" required>
+                        <option value="" disabled selected>Selecione uma opção...</option>
+                        <option value="1">Não possuímos nenhuma política de segurança</option>
+                        <option value="2">Usamos antivírus comum e senhas simples</option>
+                        <option value="3">Dados criptografados, backups rotineiros e controle de acessos</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="q3">3. Qual o nível de automação dos seus processos?</label>
+                    <select id="q3" required>
+                        <option value="" disabled selected>Selecione uma opção...</option>
+                        <option value="1">Tudo depende de digitação e esforço humano repetitivo</option>
+                        <option value="2">Algumas ferramentas isoladas ajudam, mas não se conversam</option>
+                        <option value="3">Sistemas integrados via API que automatizam as tarefas</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn-submit" onclick="calcularMaturidade()">Analisar Negócio</button>
+            </form>
+
+            <div id="resultBox" class="result-box">
+                <h3 id="resultTitle" style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem;"></h3>
+                <div class="progress-bar-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <p id="resultDesc" style="color: var(--text-main); margin-top: 10px;"></p>
+            </div>
+        </section>
+
+        <section id="ods" class="ods-banner reveal">
             <div class="ods-number">08</div>
             <div>
-                <h2 style="margin-bottom: 10px; color: #A21C33;">Trabalho Decente e Crescimento Econômico</h2>
-                <p>Este hub tecnológico atua diretamente na meta de promover políticas orientadas para o desenvolvimento, que apoiam a criatividade e a inovação nas microempresas[cite: 1].</p>
+                <h2 style="margin-bottom: 15px; color: #A21C33; font-family: 'Space Grotesk', sans-serif;">Trabalho
+                    Decente e Crescimento Econômico</h2>
+                <p>Este hub tecnológico atua diretamente na meta de promover políticas orientadas para o
+                    desenvolvimento, que apoiam a criatividade e a inovação nas microempresas locais.</p>
             </div>
-        </div>
+        </section>
 
-        <footer>
+        <footer class="reveal">
             <p>Projeto Desenvolvido por <strong>Hendril Mendes Ribeiro</strong></p>
             <p>Universidade Cruzeiro do Sul - Polo Unifran</p>
         </footer>
     </div>
+
+    <script>
+        // Lógica de Animação no Scroll (Intersection Observer)
+        document.addEventListener("DOMContentLoaded", () => {
+            const reveals = document.querySelectorAll(".reveal");
+
+            const revealOptions = {
+                threshold: 0.15, // Aciona quando 15% do elemento estiver visível
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function (entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add("active");
+                    observer.unobserve(entry.target); // Para animar apenas uma vez
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+        });
+
+        // Lógica de Cálculo de Maturidade
+        function calcularMaturidade() {
+            const select1 = document.getElementById('q1').value;
+            const select2 = document.getElementById('q2').value;
+            const select3 = document.getElementById('q3').value;
+
+            // Validação simples para ver se o usuário respondeu tudo
+            if (!select1 || !select2 || !select3) {
+                alert("Por favor, responda todas as perguntas para o diagnóstico.");
+                return;
+            }
+
+            const q1 = parseInt(select1);
+            const q2 = parseInt(select2);
+            const q3 = parseInt(select3);
+
+            const pontuacaoMaxima = 9;
+            const pontuacaoAtual = q1 + q2 + q3;
+            const porcentagem = Math.round((pontuacaoAtual / pontuacaoMaxima) * 100);
+
+            const resultBox = document.getElementById('resultBox');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultDesc = document.getElementById('resultDesc');
+            const progressBar = document.getElementById('progressBar');
+
+            resultBox.style.display = 'block';
+
+            // Pequeno delay para a barra de progresso animar suavemente
+            setTimeout(() => {
+                progressBar.style.width = porcentagem + '%';
+            }, 100);
+
+            if (porcentagem <= 40) {
+                resultTitle.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color: #ef4444; margin-right: 10px;"></i> Nível: Vulnerabilidade Digital (${porcentagem}%)`;
+                resultDesc.innerText = "Seu negócio está operando de forma analógica e corre riscos de perda de dados. Recomendação: Migrar dados essenciais para planilhas em nuvem e adotar rotinas básicas de senhas.";
+                resultBox.style.background = "rgba(239, 68, 68, 0.1)";
+                resultBox.style.border = "1px solid rgba(239, 68, 68, 0.2)";
+            } else if (porcentagem <= 80) {
+                resultTitle.innerHTML = `<i class="fa-solid fa-chart-line" style="color: #3b82f6; margin-right: 10px;"></i> Nível: Digitalização Parcial (${porcentagem}%)`;
+                resultDesc.innerText = "Bom começo! Seus dados já são digitais, mas faltam processos automatizados e segurança robusta. Recomendação: Integrar sistemas via ferramentas SaaS para evitar trabalho manual.";
+                resultBox.style.background = "rgba(59, 130, 246, 0.1)";
+                resultBox.style.border = "1px solid rgba(59, 130, 246, 0.2)";
+            } else {
+                resultTitle.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #10b981; margin-right: 10px;"></i> Nível: Maturidade Tecnológica (${porcentagem}%)`;
+                resultDesc.innerText = "Parabéns! Seu negócio utiliza arquitetura moderna. O próximo passo de engenharia seria aplicar análise de dados preditiva ou inteligência artificial nos workflows.";
+                resultBox.style.background = "rgba(16, 185, 129, 0.1)";
+                resultBox.style.border = "1px solid rgba(16, 185, 129, 0.2)";
+            }
+
+            // Scroll suave
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
 </body>
+
 </html>
